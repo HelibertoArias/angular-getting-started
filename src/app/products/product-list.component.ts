@@ -1,16 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { IProduct } from "./iproduct";
-import { ProductService } from './product.service';
-
+import { ProductService } from "./product.service";
 
 @Component({
   selector: "pm-products",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.css"]
 })
-
 export class ProductListComponent implements OnInit {
-
   imageWidth: number = 50;
 
   imageMargin: number = 2;
@@ -22,6 +19,9 @@ export class ProductListComponent implements OnInit {
   pageTitle: string = "Product List";
 
   private _listFilter: string;
+
+  errorMessage: string;
+
   public get listFilter(): string {
     return this._listFilter;
   }
@@ -35,13 +35,22 @@ export class ProductListComponent implements OnInit {
 
   products: IProduct[];
 
-  constructor(private productService:ProductService) {
-   // this.listFilter = "cart";
+  constructor(private productService: ProductService) {
+    // this.listFilter = "cart";
   }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;
+    this.productService.getProducts().subscribe({
+      next : products=> {
+
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error : err => {
+        this.errorMessage = err;
+      }
+    });
+
 
   }
 
@@ -56,7 +65,7 @@ export class ProductListComponent implements OnInit {
         product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
     );
   }
-  onRatingClicked(message:string):void{
-    this.pageTitle = 'Product list ' + message;
+  onRatingClicked(message: string): void {
+    this.pageTitle = "Product list " + message;
   }
 }
