@@ -7,21 +7,15 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { ProductDetailGuard } from "./product-detail.guard";
 import { SharedModule } from "../shared/shared.module";
+import { ProductRoutingModule } from './product-routing.module';
 
 @NgModule({
   declarations: [ProductListComponent, ProductDetailComponent, ConvertToSpaces],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild([
-      { path: "products", component: ProductListComponent },
-      {
-        path: "products/:id",
-        canActivate: [ProductDetailGuard],
-        component: ProductDetailComponent
-      }
-    ]),
-    SharedModule
+    SharedModule,
+    ProductRoutingModule
   ]
 })
 export class ProductModule {}
