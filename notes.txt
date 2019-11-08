@@ -1,0 +1,22 @@
+Install Bootstrap
+npm install bootstrap font-awesome
+
+--Instalar cli de angular
+  npm install -g @angular/cli
+
+--Creando un componente (--flat evita crear nuevo folder)
+  ng g c products/product-detail --flat
+
+-- Generando guard
+  ng g g products/product-detail
+
+  --creando modulo de productos e importando en app
+  ng g m products/product --flat -m app
+
+ng g m shared/shared --flat -m products/product
+
+-- version de angular
+  ng -version
+  
+-- Actualizar version
+  ng update @angular/cli
